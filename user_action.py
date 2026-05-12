@@ -1,0 +1,1 @@
+get_data = input("Type add, show, edit, complete or exit: ")
