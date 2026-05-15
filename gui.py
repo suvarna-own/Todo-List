@@ -72,6 +72,7 @@ import FreeSimpleGUI as sg
 import zipfile
 from pathlib import Path
 
+
 # 1. Define the layout (list of lists)
 layout = [
     [sg.Text("Select a file to compress:"),sg.InputText(key="-files-inputs-"),sg.FilesBrowse("Choose")],
@@ -111,13 +112,14 @@ while True:
     # Access input value using its key
     # files_to_zip = values["-files-inputs-"].split(";")  # Split the string of file paths into a list
     destination_folder = values["-folder-inputs-"]
-    zip_name = f"{destination_folder}.zip"  # Get the last part of the folder path as zip name
-    print(f"files to zip, {files_to_zip}!")
-    print(f"destination folder, {destination_folder}!")
+    # zip_name = f"{destination_folder}.zip"  # Get the last part of the folder path as zip name
+    zip_name = Path(destination_folder).name + ".zip"
+    print(f"files to zip, {files_to_zip}")
+    print(f"zip_name, {zip_name}")
 
   
 # Use 'w' mode to create a new file; ZIP_DEFLATED enables compression
-    with zipfile.ZipFile('my_new_archive.zip', 'w', compression=zipfile.ZIP_DEFLATED) as zipf:
+    with zipfile.ZipFile(f'{zip_name}', 'w', compression=zipfile.ZIP_DEFLATED) as zipf:
      for file in files_to_zip:
         zipf.write(file)
      print("Files have been zipped successfully!")
